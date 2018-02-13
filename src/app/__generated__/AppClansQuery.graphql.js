@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 81c66568b6b49a826f98d83219fcac62
+ * @relayHash f651818c54f5290dd39f62a9d49a510d
  */
 
 /* eslint-disable */
@@ -10,18 +10,30 @@
 /*::
 import type {ConcreteBatch} from 'relay-runtime';
 export type AppClansQueryResponse = {|
-  +clans: ?$ReadOnlyArray<?{|
-    +clanId: ?string;
+  +servers: ?$ReadOnlyArray<?{|
+    +server: ?string;
+    +playersOnline: ?number;
   |}>;
+  +clans: ?$ReadOnlyArray<?{| |}>;
 |};
 */
 
 
 /*
 query AppClansQuery {
-  clans {
-    clanId
+  servers {
+    server
+    playersOnline
   }
+  clans {
+    ...ClanListItem_clan
+  }
+}
+
+fragment ClanListItem_clan on Clan {
+  clanId
+  name
+  tag
 }
 */
 
@@ -36,16 +48,39 @@ const batch /*: ConcreteBatch*/ = {
         "kind": "LinkedField",
         "alias": null,
         "args": null,
-        "concreteType": "Clan",
-        "name": "clans",
+        "concreteType": "ServerInfo",
+        "name": "servers",
         "plural": true,
         "selections": [
           {
             "kind": "ScalarField",
             "alias": null,
             "args": null,
-            "name": "clanId",
+            "name": "server",
             "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "args": null,
+            "name": "playersOnline",
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      },
+      {
+        "kind": "LinkedField",
+        "alias": null,
+        "args": null,
+        "concreteType": "Clan",
+        "name": "clans",
+        "plural": true,
+        "selections": [
+          {
+            "kind": "FragmentSpread",
+            "name": "ClanListItem_clan",
+            "args": null
           }
         ],
         "storageKey": null
@@ -67,23 +102,68 @@ const batch /*: ConcreteBatch*/ = {
         "kind": "LinkedField",
         "alias": null,
         "args": null,
-        "concreteType": "Clan",
-        "name": "clans",
+        "concreteType": "ServerInfo",
+        "name": "servers",
         "plural": true,
         "selections": [
           {
             "kind": "ScalarField",
             "alias": null,
             "args": null,
-            "name": "clanId",
+            "name": "server",
             "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "args": null,
+            "name": "playersOnline",
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      },
+      {
+        "kind": "LinkedField",
+        "alias": null,
+        "args": null,
+        "concreteType": "Clan",
+        "name": "clans",
+        "plural": true,
+        "selections": [
+          {
+            "kind": "InlineFragment",
+            "type": "Clan",
+            "selections": [
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "args": null,
+                "name": "clanId",
+                "storageKey": null
+              },
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "args": null,
+                "name": "name",
+                "storageKey": null
+              },
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "args": null,
+                "name": "tag",
+                "storageKey": null
+              }
+            ]
           }
         ],
         "storageKey": null
       }
     ]
   },
-  "text": "query AppClansQuery {\n  clans {\n    clanId\n  }\n}\n"
+  "text": "query AppClansQuery {\n  servers {\n    server\n    playersOnline\n  }\n  clans {\n    ...ClanListItem_clan\n  }\n}\n\nfragment ClanListItem_clan on Clan {\n  clanId\n  name\n  tag\n}\n"
 };
 
 module.exports = batch;

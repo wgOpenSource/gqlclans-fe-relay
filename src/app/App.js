@@ -4,6 +4,9 @@ import React, { Component } from 'react'
 import { graphql, QueryRenderer } from 'react-relay'
 import environment from '../envinronment'
 import logo from './logo.svg'
+
+import ClansListItem from './ClanListItem'
+
 import './App.css'
 
 export default class App extends Component<{}> {
@@ -13,8 +16,12 @@ export default class App extends Component<{}> {
                 environment={environment}
                 query={graphql`
                     query AppClansQuery {
+                        servers {
+                            server
+                            playersOnline
+                        }
                         clans {
-                            clanId
+                            ...ClanListItem_clan
                         }
                     }
                 `}
@@ -35,12 +42,7 @@ export default class App extends Component<{}> {
                             <img src={logo} className="App-logo" alt="logo" />
                             <h1 className="App-title">Welcome to React</h1>
                         </header>
-                        <p className="App-intro">
-                            {props.clans.map(clan => (
-                                <div key={clan.clanId}>Clan {clan.clanId}</div>
-                            ))}
-                            To get started, edit <code>src/App.js</code> and save to reload.
-                        </p>
+                        <ClansListItem />
                     </div>
                 }}
             />
