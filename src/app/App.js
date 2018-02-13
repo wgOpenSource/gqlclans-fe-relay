@@ -1,10 +1,12 @@
+// @flow
+
 import React, { Component } from 'react'
 import { graphql, QueryRenderer } from 'react-relay'
 import environment from '../envinronment'
 import logo from './logo.svg'
 import './App.css'
 
-class App extends Component {
+export default class App extends Component<{}> {
     render() {
         return (
             <QueryRenderer
@@ -45,5 +47,3 @@ class App extends Component {
         )
     }
 }
-
-export default App

@@ -2,6 +2,13 @@
 gqlclans React application with Relay
 
 
+## Development
+
+- If backend schema was updated, it's required to update schema introspection file in repo by running `yarn run fetch_schema`
+- To generate relay compiled graphql files run `yarn run relay`. It supports `--watch` mode
+- It's required to run flow checker while developing by running `yarn run flow`
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>

@@ -1,3 +1,5 @@
+// @flow
+
 import { Environment, Network, RecordSource, Store } from 'relay-runtime'
 
 const GRAPHQL_URL = 'http://localhost:8567/graphql'
